@@ -1,4 +1,4 @@
-#include <advancedsettings>
+#include <advanced-settings>
 
 // this template is meant to help quick start using the advanced settings library in your gamemode
 // the library's functions require a lot of repetitive things like providing a MySQL table, a PawnPlus map
