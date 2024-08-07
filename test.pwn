@@ -5,7 +5,7 @@
 #include <PawnPlus>
 #include <json>
 
-#include "advancedsettings"
+#include "advanced-settings"
 
 new TEST_TABLE[12] = "test";
 new MySQL:connection; // just a dummy connection
