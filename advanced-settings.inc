@@ -461,7 +461,7 @@ stock DeleteSetting(Map:map, const key[], const table[], sqlid)
 	return true;
 }
 
-ConvertJSONToMap(Node:node, Map:map)
+stock ConvertJSONToMap(Node:node, Map:map)
 {
 	new index, keystr[32];
 	while(!JSON_Keys(node, index, keystr))
@@ -550,7 +550,7 @@ ConvertJSONToMap(Node:node, Map:map)
 	}
 }
 
-ConvertMapToJSON(Map:map, Node:node)
+stock ConvertMapToJSON(Map:map, Node:node)
 {
 	JSON_ToggleGC(node, false);
 
@@ -619,7 +619,7 @@ ConvertMapToJSON(Map:map, Node:node)
 	}
 }
 
-StringifyEntityExtraMap(Map:map, string[], bool:delete = false, len = sizeof(string))
+stock StringifyEntityExtraMap(Map:map, string[], bool:delete = false, len = sizeof(string))
 {
 	string[0] = EOS;
 	if(map_valid(map) && map_size(map))
