@@ -1,6 +1,6 @@
 # advanced-settings
 
-[![sampctl](https://img.shields.io/badge/sampctl-advanced-settings-2f2f2f.svg?style=for-the-badge)](https://github.com/TommyB123/advanced-settings)
+[![sampctl](https://img.shields.io/badge/sampctl-advanced--settings-2f2f2f.svg?style=for-the-badge)](https://github.com/TommyB123/advanced-settings)
 
 This is a library I wrote for Red County Roleplay to quickly add new account or character settings/attributes without any silly MySQL table tedium.
 
