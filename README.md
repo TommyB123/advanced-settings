@@ -76,7 +76,7 @@ sampctl install TommyB123/advanced-settings
 Include in your code and begin using the library:
 
 ```pawn
-#include <advancedsettings>
+#include <advanced-settings>
 ```
 
 ## Usage
