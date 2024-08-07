@@ -70,7 +70,7 @@ Happy Pawning!
 Simply install to your project:
 
 ```bash
-sampctl package install TommyB123/advanced-settings
+sampctl install TommyB123/advanced-settings
 ```
 
 Include in your code and begin using the library:
