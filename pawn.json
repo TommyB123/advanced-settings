@@ -1,0 +1,12 @@
+{
+	"user": "TommyB123",
+	"repo": "advanced-settings",
+	"entry": "test.pwn",
+	"output": "test.amx",
+	"dependencies": [
+		"pawn-lang/samp-stdlib",
+		"pBlueG/SA-MP-MySQL:R41-4",
+		"Southclaws/pawn-json:1.4.1",
+		"IS4Code/PawnPlus:v1.4.3"
+	]
+}
