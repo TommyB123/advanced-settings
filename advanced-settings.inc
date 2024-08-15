@@ -33,13 +33,13 @@ public AS_OnSettingsLoaded(Map:map, const table[], entityid)
 	new key[24], id, value, extra_stringified[2048], Node:node;
 	for(new i = 0, r = cache_num_rows(); i < r; i++)
 	{
-        cache_get_value_name_int(i, "id", id);
+		cache_get_value_name_int(i, "id", id);
 		cache_get_value_name(i, "key", key);
 		cache_get_value_name_int(i, "value", value);
 		cache_get_value_name(i, "extra", extra_stringified);
 
 		new Map:data = map_new();
-        map_str_set(data, SETTING_SQLID, id);
+		map_str_set(data, SETTING_SQLID, id);
 		map_str_set(data, SETTING_BASE_VALUE, value);
 
 		JSON_Parse(extra_stringified, node);
