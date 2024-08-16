@@ -55,7 +55,7 @@ SetupAutomaticLogins(playerid)
 	SetAccountSetting(playerid, SETTING_AUTO_LOGIN, 1);
 
 	// save their currently-stored IP and GPCI so they can be referenced later.
-    // these are essentiall stored as child data belonging to the main SETTING_AUTO_LOGIN key
+	// these are essentiall stored as child data belonging to the main SETTING_AUTO_LOGIN key
 	SetAccountSettingExtra(playerid, SETTING_AUTO_LOGIN, AUTO_LOGIN_EXTRA_IP, var_new_str(PlayerIP[playerid]));
 	SetAccountSettingExtra(playerid, SETTING_AUTO_LOGIN, AUTO_LOGIN_EXTRA_GPCI, var_new_str(PlayerSerial[playerid]));
 }
