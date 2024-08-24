@@ -426,14 +426,14 @@ stock SaveSetting(Map:map, const key[], const table[], sqlid)
 	if(!map_has_str_key(setting, SETTING_SQLID))
 	{
 		//insert new row
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO %s (sqlid, setting, settingval, extra) VALUES (%i, '%e', %i, '%e')", table, sqlid, key, value, extra_stringified);
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO %s (sqlid, key, value, extra) VALUES (%i, '%e', %i, '%e')", table, sqlid, key, value, extra_stringified);
 		mysql_tquery(SettingsMySQLHandle, query, "AS_OnSettingInserted", "is", _:map, key);
 	}
 	else
 	{
 		//update existing row
 		new id = map_str_get(setting, SETTING_SQLID);
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE %s SET settingval = %i, extra = '%e' WHERE id = %i", table, value, extra_stringified, id);
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE %s SET value = %i, extra = '%e' WHERE id = %i", table, value, extra_stringified, id);
 		mysql_tquery(SettingsMySQLHandle, query);
 	}
 	return true;
