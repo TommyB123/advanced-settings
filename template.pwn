@@ -27,8 +27,6 @@ static Map:_CHANGEME_Settings[MAX_PLAYERS] = {INVALID_MAP, ...};
 #include <YSI_Coding\y_hooks>
 hook OnGameModeInit()
 {
-	SettingDefaults = map_new();
-
 	// assign the default value of 0 to EXAMPLE_SETTING. this will ensure that the setting's data
 	// is cleared from MySQL if it's set to 0.
 	SetCHANGEMESettingDefault(EXAMPLE_SETTING, 0);
@@ -53,13 +51,21 @@ hook OnPlayerDisconnect(playerid, reason)
 
 LoadCHANGEMESettings(playerid) // consider changing this variable name to whatever is appropriate for your system
 {
-	if(!map_valid(_CHANGEME_Settings[playerid])) _CHANGEME_Settings[playerid] = map_new();
+	if(!map_valid(_CHANGEME_Settings[playerid]))
+	{
+		_CHANGEME_Settings[playerid] = map_new();
+	}
 
 	LoadSettings(_CHANGEME_Settings[playerid], SETTINGS_TABLE, YourDatabaseIDVariable[playerid]);
 }
 
 stock SetCHANGEMESettingDefault(const key[], value)
 {
+	if(!map_vaid(SettingDefaults))
+	{
+		SettingDefaults = map_new();
+	}
+
 	map_str_set(SettingDefaults, key, value);
 }
 

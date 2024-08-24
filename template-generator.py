@@ -15,13 +15,20 @@ static Map:$settingmap[$settingconstant] = {INVALID_MAP, ...};
 // call this function when your entity is loaded, such as when a player connects or a saved vehicle is loaded.
 Load$settingnameSettings($entityvariable)
 {
-    if(!map_valid($settingmap[$entityvariable])) $settingmap[$entityvariable] = map_new();
+    if(!map_valid($settingmap[$entityvariable]))
+    {
+        $settingmap[$entityvariable] = map_new();
+    }
 
     LoadSettings($settingmap[$entityvariable], SETTINGS_TABLE, $entitydatabasevariable[$entityvariable]);
 }
 
 stock Set$settingnameSettingDefault(const key[], value)
 {
+    if(!map_vaid(SettingDefaults))
+    {
+        SettingDefaults = map_new();
+    }
     map_str_set(SettingDefaults, key, value);
 }
 
