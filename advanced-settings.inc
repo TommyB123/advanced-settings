@@ -412,31 +412,40 @@ stock GetSettingExtraStr(Map:map, const key[], const extrakey[], buffer[], len =
 	return map_str_get_str(setting, extrakey, buffer, len);
 }
 
-stock SaveSetting(Map:map, const key[], const table[], sqlid)
+stock SaveSetting(Map:map, const key[], const table[], entityid)
 {
-	if(sqlid == 0) return true;
+	if(entityid == 0) return true;
 	if(!map_valid(map)) return true;
 	if(!map_has_str_key(map, key)) return true;
 
-	new Map:setting = Map:map_str_get(map, key), extra_stringified[2048];
+	new Map:setting = Map:map_str_get(map, key);
 	new value = map_str_get(setting, SETTING_BASE_VALUE);
+	new sqlid = map_has_str_key(setting, SETTING_SQLID) ? map_str_get(setting, SETTING_SQLID) : 0;
+
+	new extra_stringified[2048];
 	StringifyEntityExtraMap(setting, extra_stringified);
 
+	new query[128];
+	mysql_format(SettingsMySQLHandle, query, sizeof(query), "SELECT NULL FROM %e WHERE key = '%e'", key);
+	mysql_tquery(SettingsMySQLHandle, query, "AS_OnSettingCheck", "issiiis", _:map, key, table, entityid, sqlid, value, extra_stringified);
+	return true;
+}
+
+forward AS_OnSettingCheck(Map:map, const key[], const table[], entityid, sqlid, value, const extradata[]);
+public AS_OnSettingCheck(Map:map, const key[], const table[], entityid, sqlid, value, const extradata[])
+{
 	new query[2048 + 256];
-	if(!map_has_str_key(setting, SETTING_SQLID))
+	if(!cache_num_rows())
 	{
-		//insert new row
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO %s (sqlid, key, value, extra) VALUES (%i, '%e', %i, '%e')", table, sqlid, key, value, extra_stringified);
+		//insert a new row
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO %s (entityid, key, value, extra) VALUES (%i, '%e', %i, '%e')", table, entityid, key, value, extradata);
 		mysql_tquery(SettingsMySQLHandle, query, "AS_OnSettingInserted", "is", _:map, key);
 	}
 	else
 	{
-		//update existing row
-		new id = map_str_get(setting, SETTING_SQLID);
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE %s SET value = %i, extra = '%e' WHERE id = %i", table, value, extra_stringified, id);
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE %s SET value = %i, extra = '%e' WHERE id = %i", table, value, extradata, sqlid);
 		mysql_tquery(SettingsMySQLHandle, query);
 	}
-	return true;
 }
 
 forward AS_OnSettingInserted(Map:map, const key[]);
