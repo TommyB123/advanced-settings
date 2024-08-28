@@ -426,7 +426,7 @@ stock SaveSetting(Map:map, const key[], const table[], entityid)
 	StringifyEntityExtraMap(setting, extra_stringified);
 
 	new query[128];
-	mysql_format(SettingsMySQLHandle, query, sizeof(query), "SELECT NULL FROM %e WHERE key = '%e'", key);
+	mysql_format(SettingsMySQLHandle, query, sizeof(query), "SELECT NULL FROM `%e` WHERE `key` = '%e' AND `entityid` = %i", table, key, entityid);
 	mysql_tquery(SettingsMySQLHandle, query, "AS_OnSettingCheck", "issiiis", _:map, key, table, entityid, sqlid, value, extra_stringified);
 	return true;
 }
@@ -438,12 +438,12 @@ public AS_OnSettingCheck(Map:map, const key[], const table[], entityid, sqlid, v
 	if(!cache_num_rows())
 	{
 		//insert a new row
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO %s (entityid, key, value, extra) VALUES (%i, '%e', %i, '%e')", table, entityid, key, value, extradata);
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "INSERT INTO `%s` (`entityid`, `key`, `value`, `extra`) VALUES (%i, '%e', %i, '%e')", table, entityid, key, value, extradata);
 		mysql_tquery(SettingsMySQLHandle, query, "AS_OnSettingInserted", "is", _:map, key);
 	}
 	else
 	{
-		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE %s SET value = %i, extra = '%e' WHERE id = %i", table, value, extradata, sqlid);
+		mysql_format(SettingsMySQLHandle, query, sizeof(query), "UPDATE `%s` SET `value` = %i, `extra` = '%e' WHERE `id` = %i", table, value, extradata, sqlid);
 		mysql_tquery(SettingsMySQLHandle, query);
 	}
 }
@@ -461,7 +461,7 @@ public AS_OnSettingInserted(Map:map, const key[])
 stock DeleteSetting(Map:map, const key[], const table[], sqlid)
 {
 	new query[128];
-	mysql_format(SettingsMySQLHandle, query, sizeof(query), "DELETE FROM %e WHERE sqlid = %i AND setting = '%e'", table, sqlid, key);
+	mysql_format(SettingsMySQLHandle, query, sizeof(query), "DELETE FROM `%e` WHERE `entityid` = %i AND `key` = '%e'", table, sqlid, key);
 	mysql_tquery(SettingsMySQLHandle, query);
 	if(map_valid(map) && map_has_str_key(map, key))
 	{
