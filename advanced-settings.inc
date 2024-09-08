@@ -635,7 +635,8 @@ stock StringifyEntityExtraMap(Map:map, string[], bool:delete = false, len = size
 	{
 		new Node:node = JSON_Object();
 		ConvertMapToJSON(map, node);
-		JSON_Remove(node, SETTING_BASE_VALUE); //don't store base value
+		JSON_Remove(node, SETTING_BASE_VALUE); //don't store base value as an extra
+		JSON_Remove(node, SETTING_SQLID); //don't store setting database ID as an extra
 		JSON_Stringify(node, string, len);
 		JSON_Cleanup(node);
 		if(delete) map_delete_deep(map);
