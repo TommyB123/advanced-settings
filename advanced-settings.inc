@@ -110,7 +110,12 @@ stock PushSettingList(Map:map, const key[], const extrakey[], Variant:value, con
 		list = list_new();
 		map_str_add(setting, extrakey, list);
 	}
-	else list = List:map_str_get(setting, extrakey);
+	else
+	{
+		if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
+
+		list = List:map_str_get(setting, extrakey);
+	}
 
 	switch(var_tag_uid(value))
 	{
@@ -140,10 +145,11 @@ stock PopSettingList(Map:map, const key[], const extrakey[], Variant:value, cons
 	if(!map_valid(map)) return false;
 	if(!map_has_str_key(map, key)) return false;
 
-	new Map:settings = Map:map_str_get(map, key);
-	if(!map_has_str_key(settings, extrakey)) return false;
+	new Map:setting = Map:map_str_get(map, key);
+	if(!map_has_str_key(setting, extrakey)) return false;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
-	new List:list = List:map_str_get(settings, extrakey);
+	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return false;
 
 	new index = -1;
@@ -210,6 +216,7 @@ stock FindSettingListValue(Map:map, const key[], const extrakey[], Variant:value
 
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_has_str_key(setting, extrakey)) return -1;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return -1;
 
 	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return -1;
@@ -237,6 +244,7 @@ stock GetSettingListLength(Map:map, const key[], const extrakey[])
 
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_has_str_key(setting, extrakey)) return false;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
 	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return false;
@@ -250,7 +258,8 @@ stock GetSettingList(Map:map, const key[], const extrakey[], &List:list)
 	if(!map_has_str_key(map, key)) return false;
 
 	new Map:setting = Map:map_str_get(map, key);
-	if(!map_has_str_key(setting, extrakey)) return false;
+	if(!map_has_str_key(setting, extrakey)) return false
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
 	new List:templist = List:map_str_get(setting, extrakey);
 	if(!list_valid(templist)) return false;
@@ -267,6 +276,7 @@ stock GetSettingListInt(Map:map, const key[], const extrakey[], index)
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_valid(setting)) return false;
 	if(!map_has_str_key(setting, extrakey)) return false;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
 	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return false;
@@ -283,6 +293,7 @@ stock Float:GetSettingListFloat(Map:map, const key[], const extrakey[], index)
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_valid(setting)) return 0.0;
 	if(!map_has_str_key(setting, extrakey)) return 0.0;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return 0.0;
 
 	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return 0.0;
@@ -298,6 +309,7 @@ stock GetSettingListStr(Map:map, const key[], const extrakey[], index, buffer[],
 
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_has_str_key(setting, extrakey)) return false;
+	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
 	new List:list = List:map_str_get(setting, extrakey);
 	if(!list_valid(list)) return false;
