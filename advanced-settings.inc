@@ -124,6 +124,11 @@ stock PushSettingList(Map:map, const key[], const extrakey[], Variant:value, con
 			var_get_str(value, buffer);
 			list_add_str(list, buffer);
 		}
+		case tag_uid_list:
+		{
+			list_add_list(list, List:var_get(value));
+			list_delete(List:var_get(value));
+		}
 	}
 
 	if(autosave) SaveSetting(map, key, table, entityid);
