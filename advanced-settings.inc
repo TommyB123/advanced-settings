@@ -83,7 +83,7 @@ stock SetSettingExtra(Map:map, const key[], const extrakey[], Variant:value, con
 	new Map:setting = Map:map_str_get(map, key);
 	switch(var_tag_uid(value))
 	{
-		case tag_uid_cell, tag_uid_float, tag_uid_bool:
+		case tag_uid_cell, tag_uid_float, tag_uid_bool, tag_uid_list:
 		{
 			map_str_set(setting, extrakey, var_get(value));
 		}
