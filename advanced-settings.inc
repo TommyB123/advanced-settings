@@ -93,6 +93,10 @@ stock SetSettingExtra(Map:map, const key[], const extrakey[], Variant:value, con
 			var_get_str(value, buffer);
 			map_str_set_str(setting, extrakey, buffer);
 		}
+		default:
+		{
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to SetSettingExtra. (Key: %s Table: %s)", var_tag_uid(value), key, table);
+		}
 	}
 
 	if(autosave) SaveSetting(map, key, table, entityid);
@@ -134,6 +138,10 @@ stock PushSettingList(Map:map, const key[], const extrakey[], Variant:value, con
 			list_add_list(list, List:var_get(value));
 			list_delete(List:var_get(value));
 		}
+		default:
+		{
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to PushSettingList. (Key: %s Table: %s)", var_tag_uid(value), key, table);
+		}
 	}
 
 	if(autosave) SaveSetting(map, key, table, entityid);
@@ -164,6 +172,10 @@ stock PopSettingList(Map:map, const key[], const extrakey[], Variant:value, cons
 			new buffer[256];
 			var_get_str(value, buffer);
 			index = list_find_str(list, buffer);
+		}
+		default:
+		{
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to PopSettingList. (Key: %s Table: %s)", var_tag_uid(value), key, table);
 		}
 	}
 
@@ -232,6 +244,10 @@ stock FindSettingListValue(Map:map, const key[], const extrakey[], Variant:value
 			new buffer[256];
 			var_get_str(value, buffer);
 			return list_find_str(list, buffer);
+		}
+		default:
+		{
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to FindSettingListValue. (Key: %s Table: %s)", var_tag_uid(value), key, table);
 		}
 	}
 	return -1;
