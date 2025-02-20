@@ -358,6 +358,7 @@ stock AppendSetting(Map:map, const key[], value, const table[], sqlid, bool:auto
 		new Map:setting = map_new(), basevalue = defaultvalue;
 		basevalue += value;
 		map_str_set(setting, SETTING_BASE_VALUE, basevalue);
+		map_str_set(map, key, setting);
 	}
 	else
 	{
