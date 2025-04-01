@@ -247,7 +247,7 @@ stock FindSettingListValue(Map:map, const key[], const extrakey[], Variant:value
 		}
 		default:
 		{
-			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to FindSettingListValue. (Key: %s Table: %s)", var_tag_uid(value), key, table);
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to FindSettingListValue. (Key: %s Table: %s)", var_tag_uid(value), key);
 		}
 	}
 	return -1;
@@ -274,7 +274,7 @@ stock GetSettingList(Map:map, const key[], const extrakey[], &List:list)
 	if(!map_has_str_key(map, key)) return false;
 
 	new Map:setting = Map:map_str_get(map, key);
-	if(!map_has_str_key(setting, extrakey)) return false
+	if(!map_has_str_key(setting, extrakey)) return false;
 	if(map_str_tagof(setting, extrakey) != (tagof(List:))) return false;
 
 	new List:templist = List:map_str_get(setting, extrakey);
