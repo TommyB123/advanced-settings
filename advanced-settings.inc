@@ -247,7 +247,7 @@ stock FindSettingListValue(Map:map, const key[], const extrakey[], Variant:value
 		}
 		default:
 		{
-			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to FindSettingListValue. (Key: %s Table: %s)", var_tag_uid(value), key);
+			printf("[ADVANCED SETTINGS] An unrecognized tag (%i) was passed to FindSettingListValue. (Key: %s)", var_tag_uid(value), key);
 		}
 	}
 	return -1;
