@@ -83,7 +83,11 @@ stock SetSettingExtra(Map:map, const key[], const extrakey[], Variant:value, con
 	new Map:setting = Map:map_str_get(map, key);
 	switch(var_tag_uid(value))
 	{
-		case tag_uid_cell, tag_uid_float, tag_uid_bool, tag_uid_list:
+		case tag_uid_float:
+		{
+			map_str_set(setting, extrakey, Float:var_get(value));
+		}
+		case tag_uid_cell, tag_uid_bool, tag_uid_list:
 		{
 			map_str_set(setting, extrakey, var_get(value));
 		}
@@ -123,7 +127,11 @@ stock PushSettingList(Map:map, const key[], const extrakey[], Variant:value, con
 
 	switch(var_tag_uid(value))
 	{
-		case tag_uid_cell, tag_uid_float:
+		case tag_uid_float:
+		{
+			list_add(list, Float:var_get(value));
+		}
+		case tag_uid_cell:
 		{
 			list_add(list, var_get(value));
 		}
@@ -163,7 +171,11 @@ stock PopSettingList(Map:map, const key[], const extrakey[], Variant:value, cons
 	new index = -1;
 	switch(var_tag_uid(value))
 	{
-		case tag_uid_cell, tag_uid_float:
+		case tag_uid_float:
+		{
+			index = list_find(list, Float:var_get(value))
+		}
+		case tag_uid_cell:
 		{
 			index = list_find(list, var_get(value));
 		}
@@ -235,7 +247,11 @@ stock FindSettingListValue(Map:map, const key[], const extrakey[], Variant:value
 
 	switch(var_tag_uid(value))
 	{
-		case tag_uid_cell, tag_uid_float, tag_uid_bool:
+		case tag_uid_float:
+		{
+			return list_find(list, Float:var_get(value));
+		}
+		case tag_uid_cell, tag_uid_bool:
 		{
 			return list_find(list, var_get(value));
 		}
