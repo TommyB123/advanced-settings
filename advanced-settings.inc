@@ -173,7 +173,7 @@ stock PopSettingList(Map:map, const key[], const extrakey[], Variant:value, cons
 	{
 		case tag_uid_float:
 		{
-			index = list_find(list, Float:var_get(value))
+			index = list_find(list, Float:var_get(value));
 		}
 		case tag_uid_cell:
 		{
