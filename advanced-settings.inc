@@ -12,6 +12,10 @@
 #define SETTING_SQLID "SETTING_SQLID"
 #define SETTING_BASE_VALUE "SETTING_BASE_VALUE"
 
+#if !defined MAX_STRINGIFIED_EXTRA_LENGTH
+	#define MAX_STRINGIFIED_EXTRA_LENGTH 2048
+#endif
+
 // gotta declare our own MySQL handle here since it's an external library and allow people to reassign if necessary
 static MySQL:SettingsMySQLHandle = MYSQL_DEFAULT_HANDLE;
 
@@ -30,7 +34,7 @@ stock LoadSettings(Map:map, const table[], entityid)
 forward AS_OnSettingsLoaded(Map:map, const table[], entityid);
 public AS_OnSettingsLoaded(Map:map, const table[], entityid)
 {
-	new key[24], id, value, extra_stringified[2048], Node:node;
+	new key[24], id, value, extra_stringified[MAX_STRINGIFIED_EXTRA_LENGTH], Node:node;
 	for(new i = 0, r = cache_num_rows(); i < r; i++)
 	{
 		cache_get_value_name_int(i, "id", id);
@@ -472,7 +476,7 @@ stock SaveSetting(Map:map, const key[], const table[], entityid)
 	new value = map_str_get(setting, SETTING_BASE_VALUE);
 	new sqlid = map_has_str_key(setting, SETTING_SQLID) ? map_str_get(setting, SETTING_SQLID) : 0;
 
-	new extra_stringified[2048];
+	new extra_stringified[MAX_STRINGIFIED_EXTRA_LENGTH];
 	StringifyEntityExtraMap(setting, extra_stringified);
 
 	new query[128];
@@ -484,7 +488,7 @@ stock SaveSetting(Map:map, const key[], const table[], entityid)
 forward AS_OnSettingCheck(Map:map, const key[], const table[], entityid, sqlid, value, const extradata[]);
 public AS_OnSettingCheck(Map:map, const key[], const table[], entityid, sqlid, value, const extradata[])
 {
-	new query[2048 + 256];
+	new query[MAX_STRINGIFIED_EXTRA_LENGTH];
 	if(!cache_num_rows())
 	{
 		//insert a new row
