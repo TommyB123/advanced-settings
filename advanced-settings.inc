@@ -82,7 +82,11 @@ stock SetSettingValue(Map:map, const key[], value, const table[], entityid, bool
 stock SetSettingExtra(Map:map, const key[], const extrakey[], Variant:value, const table[], entityid, bool:autosave = true)
 {
 	if(!map_valid(map)) return false;
-	if(!map_has_str_key(map, key)) return false;
+	if(!map_has_str_key(map, key))
+	{
+		printf("[ADVANCED SETTINGS] Attempted to add extra data (%s) to %s before the setting has actually been set. Create the setting first with a standard SetSetting function.", extrakey, key);
+		return false;
+	}
 
 	new Map:setting = Map:map_str_get(map, key);
 	switch(var_tag_uid(value))
@@ -114,7 +118,11 @@ stock SetSettingExtra(Map:map, const key[], const extrakey[], Variant:value, con
 stock PushSettingList(Map:map, const key[], const extrakey[], Variant:value, const table[], entityid, bool:autosave = true)
 {
 	if(!map_valid(map)) return false;
-	if(!map_has_str_key(map, key)) return false;
+	if(!map_has_str_key(map, key))
+	{
+		printf("[ADVANCED SETTINGS] Attempted to add extra data (%s) to %s before the setting has actually been set. Create the setting first with a standard SetSetting function.", extrakey, key);
+		return false;
+	}
 
 	new Map:setting = Map:map_str_get(map, key), List:list = INVALID_LIST;
 	if(!map_has_str_key(setting, extrakey))
@@ -394,7 +402,11 @@ stock AppendSetting(Map:map, const key[], value, const table[], sqlid, bool:auto
 stock AppendSettingExtra(Map:map, const key[], const extrakey[], value, const table[], sqlid, bool:autosave = true)
 {
 	if(!map_valid(map)) return false;
-	if(!map_has_str_key(map, key)) return false;
+	if(!map_has_str_key(map, key))
+	{
+		printf("[ADVANCED SETTINGS] Attempted to add extra data (%s) to %s before the setting has actually been set. Create the setting first with a standard SetSetting function.", extrakey, key);
+		return false;
+	}
 
 	new Map:setting = Map:map_str_get(map, key);
 	if(!map_has_str_key(setting, extrakey))
