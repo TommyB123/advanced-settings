@@ -42,8 +42,12 @@ main()
 	AppendSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_INT, 12, TEST_TABLE, TestEntitySQLID);
 	printf("%s value: %i (should be 24)", SETTING_EXTRA_TEST_INT, GetSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_INT));
 
+	SetSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_INT, var_new(12), TEST_TABLE, TestEntitySQLID);
+	AppendSettingExtraFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_INT, 12.0, TEST_TABLE, TestEntitySQLID);
+
 	SetSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_FLOAT, var_new(5.0), TEST_TABLE, TestEntitySQLID);
-	printf("%s value: %f (should be 5.0)", SETTING_EXTRA_TEST_FLOAT, GetSettingExtraFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_FLOAT));
+	AppendSettingExtraFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_FLOAT, 5.0, TEST_TABLE, TestEntitySQLID);
+	printf("%s value: %f (should be 10.0)", SETTING_EXTRA_TEST_FLOAT, GetSettingExtraFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_FLOAT));
 
 	new testingstring[24];
 	SetSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_STRING, var_new_str("testing"), TEST_TABLE, TestEntitySQLID);
@@ -58,7 +62,7 @@ main()
 	printf("%s index 1 string value: %s (should be \"nested_testing\")", SETTING_EXTRA_TEST_LIST, testingstring);
 
 	PushSettingList(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_LIST, var_new(6.9), TEST_TABLE, TestEntitySQLID);
-	printf("%s index 2 float value: %i (should be 1)", SETTING_EXTRA_TEST_LIST, GetSettingListFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_LIST, 1));
+	printf("%s index 2 float value: %.2f (should be 6.9)", SETTING_EXTRA_TEST_LIST, GetSettingListFloat(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_LIST, 2));
 
 	RemoveSettingExtra(SettingsMap, SETTING_TEST, SETTING_EXTRA_TEST_FLOAT, TEST_TABLE, TestEntitySQLID);
 

@@ -422,6 +422,31 @@ stock AppendSettingExtra(Map:map, const key[], const extrakey[], value, const ta
 	return true;
 }
 
+stock AppendSettingExtraFloat(Map:map, const key[], const extrakey[], Float:value, const table[], sqlid, bool:autosave = true)
+{
+	if(!map_valid(map)) return false;
+	if(!map_has_str_key(map, key))
+	{
+		printf("[ADVANCED SETTINGS] Attempted to add extra data (%s) to %s before the setting has actually been set. Create the setting first with a standard SetSetting function.", extrakey, key);
+		return false;
+	}
+
+	new Map:setting = Map:map_str_get(map, key);
+	if(!map_has_str_key(setting, extrakey))
+	{
+		map_str_set(setting, extrakey, value);
+	}
+	else
+	{
+		new Float:current = Float:map_str_get(setting, extrakey);
+		current += value;
+		map_str_set(setting, extrakey, current);
+	}
+
+	if(autosave) SaveSetting(map, key, table, sqlid);
+	return true;
+}
+
 stock ToggleSetting(Map:map, const key[], const table[], sqlid, bool:autosave = true, defaultvalue = -1)
 {
 	if(!map_valid(map)) return false;

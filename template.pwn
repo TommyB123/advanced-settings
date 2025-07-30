@@ -153,6 +153,11 @@ stock AppendCHANGEMESettingExtra(playerid, const key[], const extrakey[], value,
 	return AppendSettingExtra(_CHANGEME_Settings[playerid], key, extrakey, value, SETTINGS_TABLE, YourDatabaseIDVariable[playerid], autosave);
 }
 
+stock AppendCHANGEMESettingExtraFloat(playerid, const key[], const extrakey[], Float:value, bool:autosave = true)
+{
+	return AppendSettingExtraFloat(_CHANGEME_Settings[playerid], key, extrakey, value, SETTINGS_TABLE, YourDatabaseIDVariable[playerid], autosave);
+}
+
 stock ToggleCHANGEMESetting(playerid, const key[], bool:autosave = true)
 {
 	return ToggleSetting(_CHANGEME_Settings[playerid], key, SETTINGS_TABLE, YourDatabaseIDVariable[playerid], autosave, GetSettingDefaultValue(key));

@@ -116,6 +116,11 @@ stock Append$settingnameSettingExtra($entityvariable, const key[], const extrake
     return AppendSettingExtra($settingmap[$entityvariable], key, extrakey, value, SETTINGS_TABLE, $entitydatabasevariable[$entityvariable], autosave);
 }
 
+stock Append$settingnameSettingExtraFloat($entityvariable, const key[], const extrakey[], Float:value, bool:autosave = true)
+{
+    return AppendSettingExtraFloat($settingmap[$entityvariable], key, extrakey, value, SETTINGS_TABLE, $entitydatabasevariable[$entityvariable], autosave);
+}
+
 stock Toggle$settingnameSetting($entityvariable, const key[], bool:autosave = true)
 {
     return ToggleSetting($settingmap[$entityvariable], key, SETTINGS_TABLE, $entitydatabasevariable[$entityvariable], autosave, GetSettingDefaultValue(key));
