@@ -61,7 +61,7 @@ LoadCHANGEMESettings(playerid) // consider changing this variable name to whatev
 
 stock SetCHANGEMESettingDefault(const key[], value)
 {
-	if(!map_vaid(SettingDefaults))
+	if(!map_valid(SettingDefaults))
 	{
 		SettingDefaults = map_new();
 	}
